@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:translationX="21px"
     tools:context=".MainActivity">
 
     <ImageView
@@ -17,7 +18,7 @@
 
     <LinearLayout
         android:layout_width="317dp"
-        android:layout_height="wrap_content"
+        android:layout_height="190dp"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="24dp">
@@ -26,11 +27,19 @@
             android:id="@+id/loginText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login with"
+            android:text="Login"
             android:textAlignment="center"
             android:textColor="#21CB49"
-            android:textSize="36sp"
+            android:textSize="27sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="127dp"
+            android:layout_height="57dp"
+            android:translationX="185px"
+            android:translationY="30px"
+            card_view:srcCompat="@drawable/googlebtn" />
     </LinearLayout>
 
 </LinearLayout>
