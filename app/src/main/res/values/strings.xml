@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">UrbanPark</string>
+    <string name="btnMap">Map</string>
+    <string name="btnSearch">Search</string>
+    <string name="edSearch">Search</string>
+    <string name="edSearchHint">Address, City or Zip Code</string>
+    <string name="autoCompleteSearch">Search</string>
+    <string name="autoCompleteSearchHint">Address, City or Zip Code</string>
+
+    <!--Google Pay-->
+    <string name="GooglePay2.app_name">GooglePay2 Auto T-Shirt App</string>
+    <string name="GooglePay2.store_name" translatable="false">Auto T-Shirt Shop</string>
+    <!-- Checkout -->
+    <string name="payments_show_name">Successfully received payment data for %s!</string>
+    <string name="gateway_replace_name_example">"Gateway name set to \"example\" - please modify Constants.java and replace it with your own gateway."</string>
+    <string name="checkout_item_description">Description</string>
+    <string name="price">$10.20</string>
+    <string name="item_description">Men\'s Tech Shell Full-Zip</string>
+    <string name="payment_success_description">The payment completed successfully.\n We are preparing your order.</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
