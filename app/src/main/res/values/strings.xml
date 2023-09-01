@@ -15,7 +15,7 @@
     <string name="gateway_replace_name_example">"Gateway name set to \"example\" - please modify Constants.java and replace it with your own gateway."</string>
     <string name="checkout_item_description">Description</string>
     <string name="price">$10.20</string>
-    <string name="item_description">Men\'s Tech Shell Full-Zip</string>
+    <string name="item_description">UrbanPark using Google Pay</string>
     <string name="payment_success_description">The payment completed successfully.\n We are preparing your order.</string>
 
     <!-- Preference Titles -->

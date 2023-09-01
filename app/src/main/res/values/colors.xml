@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="whitish">#D6BEBE</color>
-    <color name="blueBlack">#111f28</color>
+    <color name="blueBlack">#140014</color>
     <color name="primary">#333</color>
     <color name="primaryDark">#111</color>
     <color name="accent">#999</color>
@@ -15,4 +15,5 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="red">#EA2A1C</color>
 </resources>

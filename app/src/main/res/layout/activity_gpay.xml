@@ -17,9 +17,10 @@
         <ImageView
             android:id="@+id/detailImage"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ts_10_11019a" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/logo" />
 
         <include
             android:id="@+id/parking_layout"
@@ -27,13 +28,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
             android:layout_marginBottom="20sp"
-            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
             layout="@layout/recycler_items_viewholder_1" />
 
         <TextView
             android:id="@+id/detailTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal|center_vertical"
             android:layout_marginTop="15dp"
             android:text="@string/item_description"
             android:textColor="?android:textColorPrimary"
@@ -44,31 +47,19 @@
             android:id="@+id/detailPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal|center_vertical"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="30dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:text="@string/price"
-            android:textColor="?android:textColorSecondary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/checkout_item_description"
-            android:textColor="?android:textColorPrimary"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/detailDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="15dp"
-            android:text="A versatile full-zip that you can wear all day long and even..."
-            android:textColor="?android:textColorSecondary" />
+            android:textColor="@color/red" />
 
         <com.google.android.gms.wallet.button.PayButton
             android:id="@+id/googlePayButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:layout_marginBottom="20dp"/>
 
     </LinearLayout>
