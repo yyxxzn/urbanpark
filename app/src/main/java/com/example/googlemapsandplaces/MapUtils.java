@@ -175,6 +175,42 @@ public class MapUtils {
         }
     }
 
+    /**
+     * Gets the devices current location
+     * Moves the camera there (something like zoom into the current device location)
+     * Mark the location with a red pin-like.
+     */
+    public static LatLng getDeviceLocationLatlong(Activity activity) {
+        Log.d(TAG, "getDeviceLocationLatlong(activity): getting the device's current location lat and long");
+
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.
+                getFusedLocationProviderClient(activity);
+
+        final LatLng[] latLng = {new LatLng(0, 0)};
+
+        try {
+            Task location = fusedLocationProviderClient.getLastLocation();
+            location.addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "getDeviceLocationLatlong(activity): onComplete: found location");
+                        Location currentLocation = (Location) task.getResult();
+                        latLng[0] = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+
+                    } else {
+                        Log.d(TAG, "getDeviceLocationLatlong(activity): onComplete: current location is null");
+                        Toast.makeText(activity.getApplicationContext(), "getDeviceLocationLatlong(activity): Unable to get current location", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        } catch (SecurityException e) {
+            Log.e(TAG, "getDeviceLocationLatlong(Activity activity): SecurityException: " + e.getMessage());
+        }
+
+        return latLng[0];
+    }
+
     public void geoLocateWithBackend(String newText) {
         if (suggestionRunnable != null) {
             suggestionHandler.removeCallbacks(suggestionRunnable);

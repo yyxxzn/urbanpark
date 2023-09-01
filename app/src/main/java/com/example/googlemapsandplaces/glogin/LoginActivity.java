@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Display the actual error message
                 String errMsg = "onActivityResult():Google sign-in failed: \n\t" + e.getMessage();
                 Log.d(TAG, errMsg);
-                Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_LONG).show();
             }
         }
     }

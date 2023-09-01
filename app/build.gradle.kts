@@ -44,8 +44,11 @@ dependencies {
     // Manually added for locations and map
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
-    implementation("androidx.preference:preference:1.2.0")
+    implementation("androidx.preference:preference:1.2.1")
     implementation("com.google.android.gms:play-services-wallet:19.2.0")
+
+    // For using SphericalUtil.computeDistanceBetween(latLngFrom, latLngTo)
+//    implementation("com.google.maps.android:android-maps-utils:0.5+")
 
     // Manually added -> Google Pay APIs
     // implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.1")

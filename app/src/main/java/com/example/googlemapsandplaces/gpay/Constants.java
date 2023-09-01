@@ -7,9 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * This file contains several constants you must edit before proceeding.
- * Please take a look at PaymentsUtil.java to see where the constants are used and to potentially
- * remove ones not relevant to your integration.
+ * This file contains several constants you may want to edit before proceeding.
+ * Please take a look at PaymentsUtil.java to see where the constants are used.
  *
  * <p>Required changes:
  * <ol>
@@ -43,7 +42,7 @@ public class Constants {
     /**
      * Get this from google
      */
-    public static final String GOOGLE_PAY_MERCHANT_NAME = "UrbanPark - One-Step Parking App";
+    public static final String GOOGLE_PAY_MERCHANT_NAME = "UrbanPark - One-step Parking App";
 
     /**
      * The allowed networks to be requested from the API. If the user has cards from networks not
@@ -96,7 +95,7 @@ public class Constants {
      *
      * @value #PAYMENT_GATEWAY_TOKENIZATION_NAME
      */
-    public static final String PAYMENT_GATEWAY_TOKENIZATION_NAME = "stripe";
+    public static final String PAYMENT_GATEWAY_TOKENIZATION_NAME = "example";
 
     // Not needed for stripe
     public static final String PAYMENT_GATEWAY_TOKENIZATION_MERCHANT_ID = "exampleGatewayMerchantId";
@@ -105,7 +104,7 @@ public class Constants {
     public static final String PAYMENT_GATEWAY_TOKENIZATION_PUBLISHABLE_KEY = "${PUBLISHABLE_KEY}";
     public static final String PAYMENT_GATEWAY_TOKENIZATION_SECRET_KEY = "${SECRET_KEY}";
 
-    public static final String PAYMENT_GATEWAY_TOKENIZATION_VERSION = "2018-10-31";
+    public static final String PAYMENT_GATEWAY_TOKENIZATION_VERSION = "${VERSION}";
 
     /**
      * Custom parameters required by the processor/gateway.
@@ -115,12 +114,19 @@ public class Constants {
      *
      * @value #PAYMENT_GATEWAY_TOKENIZATION_PARAMETERS
      */
+//    public static final HashMap<String, String> PAYMENT_GATEWAY_TOKENIZATION_PARAMETERS =
+//        new HashMap<String, String>() {{
+//            put("gateway", PAYMENT_GATEWAY_TOKENIZATION_NAME);
+//            //put("gatewayMerchantId", PAYMENT_GATEWAY_TOKENIZATION_MERCHANT_ID);
+//            put("stripe:version", PAYMENT_GATEWAY_TOKENIZATION_VERSION);
+//            put("stripe:publishableKey", PAYMENT_GATEWAY_TOKENIZATION_PUBLISHABLE_KEY);
+//            // Your processor may require additional parameters.
+//        }};
+
     public static final HashMap<String, String> PAYMENT_GATEWAY_TOKENIZATION_PARAMETERS =
-            new HashMap<String, String>() {{
-                put("gateway", PAYMENT_GATEWAY_TOKENIZATION_NAME);
-                //put("gatewayMerchantId", PAYMENT_GATEWAY_TOKENIZATION_MERCHANT_ID);
-                put("stripe:version", PAYMENT_GATEWAY_TOKENIZATION_VERSION);
-                put("stripe:publishableKey", PAYMENT_GATEWAY_TOKENIZATION_PUBLISHABLE_KEY);
-                // Your processor may require additional parameters.
-            }};
+        new HashMap<String, String>() {{
+            put("gateway", PAYMENT_GATEWAY_TOKENIZATION_NAME);
+            put("gatewayMerchantId", PAYMENT_GATEWAY_TOKENIZATION_MERCHANT_ID);
+            // Your processor may require additional parameters.
+        }};
 }

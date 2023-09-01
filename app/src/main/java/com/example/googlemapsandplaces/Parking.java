@@ -1,15 +1,15 @@
 package com.example.googlemapsandplaces;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 
 // use Serializable in order to pass the packing object from one Intent to another
 public class Parking implements Serializable {
 
     private Double lat, lng;
-    private String iban, placeName, address;
+    private String iban, placeName, address, distance, time;
 
     public Parking(Double lat, Double lng, String iban, String placeName, String address) {
         this.lat = lat;
@@ -60,4 +60,8 @@ public class Parking implements Serializable {
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
     }
+
+//    public double getDistance(LatLng latLng) {
+//        this.distance = "";
+//    }
 }

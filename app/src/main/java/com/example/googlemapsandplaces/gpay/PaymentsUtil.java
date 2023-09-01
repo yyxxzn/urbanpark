@@ -1,7 +1,5 @@
 package com.example.googlemapsandplaces.gpay;
 
-import static com.example.googlemapsandplaces.gpay.Constants.GOOGLE_PAY_MERCHANT_NAME;
-
 import android.content.Context;
 
 import com.google.android.gms.wallet.PaymentsClient;
@@ -65,9 +63,9 @@ public class PaymentsUtil {
             put("type", "PAYMENT_GATEWAY");
             put("parameters", new JSONObject() {{
                 put("gateway", Constants.PAYMENT_GATEWAY_TOKENIZATION_NAME);
-                //put("gatewayMerchantId", Constants.PAYMENT_GATEWAY_TOKENIZATION_MERCHANT_ID);
-                put("stripe:version", Constants.PAYMENT_GATEWAY_TOKENIZATION_VERSION);
-                put("stripe:publishableKey", Constants.PAYMENT_GATEWAY_TOKENIZATION_PUBLISHABLE_KEY);
+                put("gatewayMerchantId", Constants.PAYMENT_GATEWAY_TOKENIZATION_MERCHANT_ID);
+//                put("stripe:version", Constants.PAYMENT_GATEWAY_TOKENIZATION_VERSION);
+//                put("stripe:publishableKey", Constants.PAYMENT_GATEWAY_TOKENIZATION_PUBLISHABLE_KEY);
             }});
         }};
     }
@@ -117,12 +115,11 @@ public class PaymentsUtil {
         JSONObject parameters = new JSONObject();
         parameters.put("allowedAuthMethods", getAllowedCardAuthMethods());
         parameters.put("allowedCardNetworks", getAllowedCardNetworks());
+
         // Optionally, you can add billing address/phone number associated with a CARD payment method.
         parameters.put("billingAddressRequired", true);
-
         JSONObject billingAddressParameters = new JSONObject();
         billingAddressParameters.put("format", "FULL");
-
         parameters.put("billingAddressParameters", billingAddressParameters);
 
         cardPaymentMethod.put("parameters", parameters);
@@ -206,7 +203,7 @@ public class PaymentsUtil {
      * href="https://developers.google.com/pay/api/android/reference/object#MerchantInfo">MerchantInfo</a>
      */
     private static JSONObject getMerchantInfo() throws JSONException {
-        return new JSONObject().put("merchantName", GOOGLE_PAY_MERCHANT_NAME);
+        return new JSONObject().put("merchantName", Constants.GOOGLE_PAY_MERCHANT_NAME);
     }
 
     /**
