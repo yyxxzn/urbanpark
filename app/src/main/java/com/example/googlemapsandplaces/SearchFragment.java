@@ -97,7 +97,7 @@ public class SearchFragment extends Fragment {
 
         searchAutoComplete = binding.autoCompleteSearch;
         suggestionsRecyclerView = binding.searchRecyclerView;
-        suggestionsAdapter = new SuggestionsRecyclerAdapter(getContext(), parkingList);
+        suggestionsAdapter = new SuggestionsRecyclerAdapter(getContext(), getActivity(),  parkingList);
 
         suggestionsRecyclerView.setAdapter(suggestionsAdapter);
         suggestionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

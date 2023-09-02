@@ -104,10 +104,10 @@ public class GeneralUtils {
         List<Parking> parkings = new ArrayList<>();
         Parking p1, p2, p3, p4;
 
-        p1 = new Parking(41.889810, 12.473360, "", "Parking SantAgata Roma Centro", "Via Panisperna, 261, 00184 Roma RM");
-        p2 = new Parking(41.893830, 12.514420, "", "Via di Porta Labicana, 46 Parking", "Via di Porta Labicana, 46, 00185 Roma RM");
-        p3 = new Parking(41.891350, 12.515730, "", "Piazzale Labicano Parking", "Piazzale Labicano, 00182 Roma RM");
-        p4 = new Parking(41.897850, 12.518360, "", "Autoparking S. Lorenzo", "Via dei Piceni, 15, 00185 Roma RM");
+        p1 = new Parking(41.889810, 12.473360, "€2.04/hr", "Parking SantAgata Roma Centro", "Via Panisperna, 261, 00184 Roma RM", "Total: 100", "Rem: 8");
+        p2 = new Parking(41.893830, 12.514420, "€1.50/hr", "Via di Porta Labicana, 46 Parking", "Via di Porta Labicana, 46, 00185 Roma RM", "Total: 10", "Rem: 4");
+        p3 = new Parking(41.891350, 12.515730, "€5.10/hr", "Piazzale Labicano Parking", "Piazzale Labicano, 00182 Roma RM", "Total: 20", "Rem: 20");
+        p4 = new Parking(41.897850, 12.518360, "€8.90/hr", "Autoparking S. Lorenzo", "Via dei Piceni, 15, 00185 Roma RM", "Total: 10", "Rem: 3");
 
         parkings.add(p1);
         parkings.add(p2);

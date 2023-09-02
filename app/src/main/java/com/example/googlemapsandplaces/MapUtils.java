@@ -186,17 +186,18 @@ public class MapUtils {
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.
                 getFusedLocationProviderClient(activity);
 
-        final LatLng[] latLng = {new LatLng(0, 0)};
+        final LatLng[] latLng = new LatLng[1];
 
         try {
             Task location = fusedLocationProviderClient.getLastLocation();
+            Log.d(TAG, "getDeviceLocationLatlong(activity): \nTask location = fusedLocationProviderClient.getLastLocation(): "+location);
             location.addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
                     if (task.isSuccessful()) {
-                        Log.d(TAG, "getDeviceLocationLatlong(activity): onComplete: found location");
                         Location currentLocation = (Location) task.getResult();
                         latLng[0] = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                        Log.d(TAG, "getDeviceLocationLatlong(activity): onComplete: found location. \nlatlng: "+latLng);
 
                     } else {
                         Log.d(TAG, "getDeviceLocationLatlong(activity): onComplete: current location is null");
@@ -208,6 +209,7 @@ public class MapUtils {
             Log.e(TAG, "getDeviceLocationLatlong(Activity activity): SecurityException: " + e.getMessage());
         }
 
+        Log.d(TAG, "getDeviceLocationLatlong(activity): \nlatlng before return: "+latLng);
         return latLng[0];
     }
 

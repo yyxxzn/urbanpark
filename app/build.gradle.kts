@@ -22,7 +22,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -30,7 +33,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
 }
@@ -46,6 +49,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("androidx.preference:preference:1.2.1")
     implementation("com.google.android.gms:play-services-wallet:19.2.0")
+//    implementation("com.google.maps:google-maps-services:")
 
     // For using SphericalUtil.computeDistanceBetween(latLngFrom, latLngTo)
 //    implementation("com.google.maps.android:android-maps-utils:0.5+")

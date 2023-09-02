@@ -87,8 +87,16 @@ public class GPayActivity extends AppCompatActivity {
         Parking parking = (Parking) getIntent().getSerializableExtra("parkingObject");
         layoutBinding.parkingLayout.placeName.setText(parking.getPlaceName());
         layoutBinding.parkingLayout.address.setText(parking.getAddress());
-        layoutBinding.parkingLayout.distance.setText("10km");
-        layoutBinding.parkingLayout.time.setText("10pm");
+        layoutBinding.parkingLayout.totalPlaces.setText(parking.getTotalPlaces());
+        layoutBinding.parkingLayout.remPlaces.setText(parking.getRemPlaces());
+        layoutBinding.parkingLayout.price.setText(parking.getPrice());
+
+        // Call this to get the current location and the destination
+        parking.getDeviceLocationLatlong(this);
+
+        layoutBinding.parkingLayout.distance.setText(parking.getDistance());
+        layoutBinding.parkingLayout.time.setText(parking.getTime());
+
 
         // The Google Pay button is a layout file – take the root view
         googlePayButton = layoutBinding.googlePayButton;
@@ -176,6 +184,7 @@ public class GPayActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
 
             // Logging token string.
+            Log.d("Google Pay token", paymentMethodData.toString());
             Log.d("Google Pay token", paymentMethodData
                     .getJSONObject("tokenizationData")
                     .getString("token"));

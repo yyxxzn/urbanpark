@@ -2,6 +2,7 @@ package com.example.googlemapsandplaces.glogin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,9 @@ public class LoginActivity extends AppCompatActivity {
         // Use the correct binding class for your activity
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // This sets the thread policy. It's better to be at the root
+        setThreadPolicy();
 
         googleBtn = binding.imageView2;
 
@@ -84,5 +88,12 @@ public class LoginActivity extends AppCompatActivity {
         finish();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void setThreadPolicy(){
+        if (android.os.Build.VERSION.SDK_INT > 9){
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
     }
 }

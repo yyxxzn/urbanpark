@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:text="Dis: 10km"
             android:layout_marginTop="2sp"
-            android:gravity="center"
+            android:gravity="left|start"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/time"
             app:layout_constraintTop_toBottomOf="@id/address"
@@ -68,10 +68,10 @@
             android:layout_height="wrap_content"
             android:text="Time: 10mins"
             android:layout_marginTop="2sp"
-            android:gravity="center"
+            android:gravity="right|end"
             app:layout_constraintStart_toEndOf="@id/distance"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/distance"
+            app:layout_constraintTop_toBottomOf="@id/address"
             />
 
         <TextView
@@ -80,22 +80,38 @@
             android:layout_height="wrap_content"
             android:text="Total: 100"
             android:layout_marginTop="2sp"
-            android:gravity="center"
+            android:gravity="left"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/remainingPlaces"
+            app:layout_constraintEnd_toStartOf="@id/remPlaces"
             app:layout_constraintTop_toBottomOf="@id/distance"
             />
 
         <TextView
-            android:id="@+id/remainingPlaces"
+            android:id="@+id/remPlaces"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rem: 20"
             android:layout_marginTop="2sp"
-            android:gravity="center"
+            android:gravity="right"
             app:layout_constraintStart_toEndOf="@id/totalPlaces"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/totalPlaces"
+            app:layout_constraintTop_toBottomOf="@id/time"
+            />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="€5.03"
+            android:textColor="@color/red"
+            android:textSize="25dp"
+            android:layout_marginTop="15sp"
+            android:layout_marginBottom="15sp"
+            android:gravity="center|center_vertical|center_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/remPlaces"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

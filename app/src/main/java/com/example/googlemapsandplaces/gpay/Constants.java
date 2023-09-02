@@ -106,6 +106,8 @@ public class Constants {
 
     public static final String PAYMENT_GATEWAY_TOKENIZATION_VERSION = "${VERSION}";
 
+    public static final String MAP_API_KEY = "AIzaSyBxw6rx7AsUl0gvuFu81mKtm94QHAbuoOc";
+
     /**
      * Custom parameters required by the processor/gateway.
      * In many cases, your processor / gateway will only require a gatewayMerchantId.

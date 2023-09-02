@@ -1,22 +1,59 @@
 package com.example.googlemapsandplaces;
 
+import android.app.Activity;
+import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 // use Serializable in order to pass the packing object from one Intent to another
 public class Parking implements Serializable {
 
-    private Double lat, lng;
-    private String iban, placeName, address, distance, time;
+    private static final String TAG = ".Parking";
 
-    public Parking(Double lat, Double lng, String iban, String placeName, String address) {
+    private Double lat, lng;
+    private String placeName, address;
+
+    private String distance = "Dis: 10km", time="Time: 20min", price="€5.20/hr";
+
+    private String total = "Total: 100", rem="Rem: 20";
+
+    private LatLng latLng;
+
+
+    public Parking(Double lat,
+                   Double lng,
+                   String price,
+                   String placeName,
+                   String address,
+                   String total,
+                   String rem)
+    {
         this.lat = lat;
         this.lng = lng;
-        this.iban = iban;
+        this.price = price;
         this.placeName = placeName;
         this.address = address;
+        this.total = total;
+        this.rem = rem;
+    }
+
+    public void getDeviceLocationLatlong(Activity activity){
+//        latLng = MapUtils.getDeviceLocationLatlong(activity);
+
+        LatLng latLng = new LatLng(49, 12);
+
+        Log.i(TAG, "Parking: getDeviceLocationLatlong(Activity activity): \n\norigin latLng: "+latLng.toString()+"\ndest laLng: "+lat+" "+lng);
+
+        DistanceAndTime distanceAndTime = new DistanceAndTime(latLng, new LatLng(lat, lng));
+
+        List<String> ls = distanceAndTime.getDistanceAndTime();
+
+        this.distance = "Dis: " + ls.get(0);
+        this.time = "Time: " + ls.get(1);
     }
 
     // Getters and setters for properties
@@ -45,12 +82,12 @@ public class Parking implements Serializable {
         this.lng = lng;
     }
 
-    public String getIban() {
-        return iban;
+    public String getPrice() {
+        return price;
     }
 
-    public void setIban(String iban) {
-        this.iban = iban;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getPlaceName() {
@@ -61,7 +98,35 @@ public class Parking implements Serializable {
         this.placeName = placeName;
     }
 
-//    public double getDistance(LatLng latLng) {
-//        this.distance = "";
-//    }
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getTotalPlaces() {
+        return total;
+    }
+
+    public void setTotalPlaces(String total) {
+        this.total = total;
+    }
+
+    public String getRemPlaces() {
+        return rem;
+    }
+
+    public void setRemPlaces(String rem) {
+        this.rem = rem;
+    }
 }

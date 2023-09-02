@@ -1,5 +1,6 @@
 package com.example.googlemapsandplaces;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,10 +20,12 @@ public class SuggestionsRecyclerAdapter extends RecyclerView.Adapter<Suggestions
     final static private String TAG = "SuggestionsRecyclerAdapter";
     private List<Parking> suggestionsList;
     private Context context;
+    private Activity activity;
     private OnSuggestionClickListener suggestionClickListener;
 
-    public SuggestionsRecyclerAdapter(Context context, List<Parking> suggestionsList) {
+    public SuggestionsRecyclerAdapter(Context context, Activity activity, List<Parking> suggestionsList) {
         this.context = context;
+        this.activity = activity;
         this.suggestionsList = suggestionsList;
     }
 
@@ -47,8 +50,15 @@ public class SuggestionsRecyclerAdapter extends RecyclerView.Adapter<Suggestions
     public void onBindViewHolder(@NonNull SuggestionViewHolder holder, int position) {
         holder.placeName.setText(suggestionsList.get(position).getPlaceName());
         holder.address.setText(suggestionsList.get(position).getAddress());
-        //holder.distance.setText(suggestionsList.get(position).getDistance());
-        //holder.time.setText(suggestionsList.get(position).getTime());
+        holder.price.setText(suggestionsList.get(position).getPrice());
+        holder.totalPlaces.setText(suggestionsList.get(position).getTotalPlaces());
+        holder.remPlaces.setText(suggestionsList.get(position).getRemPlaces());
+
+        // Call this to get the current location and the destination
+        suggestionsList.get(position).getDeviceLocationLatlong(activity);
+
+        holder.distance.setText(suggestionsList.get(position).getDistance());
+        holder.time.setText(suggestionsList.get(position).getTime());
 
         Log.d(TAG, "onBindViewHolder: Bind the recycler items to their respective views");
     }
@@ -71,15 +81,18 @@ public class SuggestionsRecyclerAdapter extends RecyclerView.Adapter<Suggestions
 
     public class SuggestionViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView placeName, address, distance, time;
+        private TextView placeName, address, distance, time, price, totalPlaces, remPlaces;
 
         public SuggestionViewHolder(@NonNull View itemView) {
             super(itemView);
 
             placeName = itemView.findViewById(R.id.placeName);
             address = itemView.findViewById(R.id.address);
+            price = itemView.findViewById(R.id.price);
             distance = itemView.findViewById(R.id.distance);
             time = itemView.findViewById(R.id.time);
+            totalPlaces = itemView.findViewById(R.id.totalPlaces);
+            remPlaces = itemView.findViewById(R.id.remPlaces);
 
             // Responds to recycler view clicks
             itemView.setOnClickListener(new View.OnClickListener() {
