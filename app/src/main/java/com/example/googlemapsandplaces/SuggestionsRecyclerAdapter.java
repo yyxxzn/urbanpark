@@ -48,17 +48,23 @@ public class SuggestionsRecyclerAdapter extends RecyclerView.Adapter<Suggestions
 
     @Override
     public void onBindViewHolder(@NonNull SuggestionViewHolder holder, int position) {
-        holder.placeName.setText(suggestionsList.get(position).getPlaceName());
-        holder.address.setText(suggestionsList.get(position).getAddress());
-        holder.price.setText(suggestionsList.get(position).getPrice());
-        holder.totalPlaces.setText(suggestionsList.get(position).getTotalPlaces());
-        holder.remPlaces.setText(suggestionsList.get(position).getRemPlaces());
+        Parking parking = suggestionsList.get(position);
+
+        holder.placeName.setText(parking.getPlaceName());
+        holder.address.setText(parking.getAddress());
+        holder.price.setText(parking.getPrice());
+        holder.totalPlaces.setText(parking.getTotalPlaces());
+        holder.remPlaces.setText(parking.getRemPlaces());
 
         // Call this to get the current location and the destination
-        suggestionsList.get(position).getDeviceLocationLatlong(activity);
-
-        holder.distance.setText(suggestionsList.get(position).getDistance());
-        holder.time.setText(suggestionsList.get(position).getTime());
+        parking.getDistanceAndTime(activity, new Parking.DistanceCallback() {
+            @Override
+            public void onDistanceReceived(String distance, String time) {
+                // Update the UI with the calculated distance and time.
+                holder.distance.setText(distance);
+                holder.time.setText(time);
+            }
+        });
 
         Log.d(TAG, "onBindViewHolder: Bind the recycler items to their respective views");
     }

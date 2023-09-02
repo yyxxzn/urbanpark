@@ -3,6 +3,8 @@ package com.example.googlemapsandplaces;
 import android.app.Activity;
 import android.util.Log;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
@@ -41,19 +43,44 @@ public class Parking implements Serializable {
         this.rem = rem;
     }
 
-    public void getDeviceLocationLatlong(Activity activity){
-//        latLng = MapUtils.getDeviceLocationLatlong(activity);
+    public interface DistanceCallback {
+        void onDistanceReceived(String distance, String time);
+    }
 
-        LatLng latLng = new LatLng(49, 12);
+    public void getDistanceAndTime(Activity activity, DistanceCallback callback) {
+        // Use the Fused Location Provider to get the current location
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
 
-        Log.i(TAG, "Parking: getDeviceLocationLatlong(Activity activity): \n\norigin latLng: "+latLng.toString()+"\ndest laLng: "+lat+" "+lng);
+        try {
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(activity, location -> {
+                if (location != null) {
+                    LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    calculateDistanceAndTime(currentLocation, callback);
+                } else {
+                    // Handle the case where the current location is null
+                    callback.onDistanceReceived("N/A", "N/A");
+                }
+            }).addOnFailureListener(e -> {
+                // Handle any errors that occurred while getting the location
+                callback.onDistanceReceived("N/A", "N/A");
+            });
+        } catch (SecurityException e) {
+            // Handle location permission issues
+            callback.onDistanceReceived("N/A", "N/A");
+        }
+    }
 
-        DistanceAndTime distanceAndTime = new DistanceAndTime(latLng, new LatLng(lat, lng));
+    private void calculateDistanceAndTime(LatLng currentLocation, DistanceCallback callback) {
+        // Use the current location and dest_location to calculate distance and time
+        // This is where you can use your existing DistanceAndTime class
+        DistanceAndTime distanceAndTime = new DistanceAndTime(currentLocation, new LatLng(getLat(), getLng()));
 
-        List<String> ls = distanceAndTime.getDistanceAndTime();
+        List<String> disDur = distanceAndTime.getDistanceAndTime();
+        String distance = disDur.get(0);
+        String time = disDur.get(1);
 
-        this.distance = "Dis: " + ls.get(0);
-        this.time = "Time: " + ls.get(1);
+        // Return the calculated distance and time via the callback
+        callback.onDistanceReceived(distance, time);
     }
 
     // Getters and setters for properties

@@ -92,7 +92,14 @@ public class GPayActivity extends AppCompatActivity {
         layoutBinding.parkingLayout.price.setText(parking.getPrice());
 
         // Call this to get the current location and the destination
-        parking.getDeviceLocationLatlong(this);
+        parking.getDistanceAndTime(this, new Parking.DistanceCallback() {
+            @Override
+            public void onDistanceReceived(String distance, String time) {
+                // Update the UI with the calculated distance and time.
+                layoutBinding.parkingLayout.distance.setText(distance);
+                layoutBinding.parkingLayout.time.setText(time);
+            }
+        });
 
         layoutBinding.parkingLayout.distance.setText(parking.getDistance());
         layoutBinding.parkingLayout.time.setText(parking.getTime());
