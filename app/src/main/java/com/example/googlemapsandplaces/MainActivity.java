@@ -16,8 +16,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.googlemapsandplaces.databinding.ActivityMainBinding;
+import com.example.googlemapsandplaces.firebasedb.FirebaseHelper;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Google Doc: https://developers.google.com/maps/documentation/android-sdk/start#api-key
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new MapFragment());
 
         if (isServicesOk()){
+            // Comment this once the parkings are added to the database.
+            createParkingInit();
             init();
         }
 
@@ -54,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new MapFragment());
             } else if (item.getItemId() == R.id.bottom_nav_search) {
                 replaceFragment(new SearchFragment());
+            } else if (item.getItemId() == R.id.bottom_nav_booking) {
+                replaceFragment(new BookingFragment());
             } else if (item.getItemId() == R.id.bottom_nav_profile) {
                 replaceFragment(new ProfileFragment());
             } else if (item.getItemId() == R.id.bottom_nav_settings) {
@@ -62,24 +70,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-
-//        Button btnMap = (Button) findViewById(R.id.btnMap);
-//        btnMap.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, MapActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        Button btnSearch = (Button) findViewById(R.id.btnSearch);
-//        btnSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
     }
 
@@ -117,10 +107,29 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    // This is so bec of the distance and time api calls. But when use threads, you can safely comment it
     public void setThreadPolicy(){
         if (android.os.Build.VERSION.SDK_INT > 9){
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+    }
+
+    public void createParkingInit(){
+        List<Parking> parkings = new ArrayList<>();
+        Parking p1, p2, p3, p4;
+
+        p1 = new Parking(41.889810, 12.473360, "€2.04/hr", "Parking SantAgata Roma Centro", "Via Panisperna, 261, 00184 Roma RM", "Total: 100", "Rem: 8");
+        p2 = new Parking(41.893830, 12.514420, "€1.50/hr", "Via di Porta Labicana, 46 Parking", "Via di Porta Labicana, 46, 00185 Roma RM", "Total: 10", "Rem: 4");
+        p3 = new Parking(41.891350, 12.515730, "€5.10/hr", "Piazzale Labicano Parking", "Piazzale Labicano, 00182 Roma RM", "Total: 20", "Rem: 20");
+        p4 = new Parking(41.897850, 12.518360, "€8.90/hr", "Autoparking S. Lorenzo", "Via dei Piceni, 15, 00185 Roma RM", "Total: 10", "Rem: 3");
+
+        FirebaseHelper firebaseHelper = new FirebaseHelper();
+
+        // Create a new parking item
+        firebaseHelper.createParking(p1);
+        firebaseHelper.createParking(p2);
+        firebaseHelper.createParking(p3);
+        firebaseHelper.createParking(p4);
     }
 }

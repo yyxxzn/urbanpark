@@ -37,11 +37,8 @@ public class DistanceAndTime {
             StringBuilder stringBuilder = getDistanceAndTimeJsonObject();
 
             Log.d(TAG, "getDistanceAndTime(): stringBuilder = getDistanceAndTimeJsonObject(): \n\n"+stringBuilder+"\n\n");
-            Log.d(TAG, "getDistanceAndTime(): stringBuilder.toString(): \n\n"+stringBuilder.toString()+"\n\n");
 
             jsonObject = new JSONObject(stringBuilder.toString());
-
-            Log.d(TAG, "getDistanceAndTime(): jsonObject = new JSONObject(stringBuilder.toString()) \n\n"+jsonObject+"\n\n");
 
             Log.d(TAG, "getDistanceAndTime(): jsonObject: \n"+jsonObject);
 
@@ -66,9 +63,6 @@ public class DistanceAndTime {
 
             disDur.add(distanceText);
             disDur.add(durationText);
-
-            Log.i("Distance", distance.toString());
-            Log.i("Duration", duration.toString());
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block

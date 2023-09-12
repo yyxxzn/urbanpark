@@ -1,5 +1,7 @@
 package com.example.googlemapsandplaces.gpay;
 
+import static com.example.googlemapsandplaces.GeneralUtils.EMAIL;
+
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -15,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.googlemapsandplaces.Booking;
 import com.example.googlemapsandplaces.Parking;
 import com.example.googlemapsandplaces.R;
 import com.example.googlemapsandplaces.databinding.ActivityGpayBinding;
@@ -25,6 +28,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.wallet.PaymentData;
 import com.google.android.gms.wallet.button.ButtonOptions;
 import com.google.android.gms.wallet.button.PayButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +43,7 @@ public class GPayActivity extends AppCompatActivity {
 
     private static final String TAG = ".GPayActivity";
 
+    private Parking parking;
     private CheckoutViewModel model;
 
     private PayButton googlePayButton;
@@ -84,7 +90,7 @@ public class GPayActivity extends AppCompatActivity {
         ActivityGpayBinding layoutBinding = ActivityGpayBinding.inflate(getLayoutInflater());
         setContentView(layoutBinding.getRoot());
 
-        Parking parking = (Parking) getIntent().getSerializableExtra("parkingObject");
+        parking = (Parking) getIntent().getSerializableExtra("parkingObject");
         layoutBinding.parkingLayout.placeName.setText(parking.getPlaceName());
         layoutBinding.parkingLayout.address.setText(parking.getAddress());
         layoutBinding.parkingLayout.totalPlaces.setText(parking.getTotalPlaces());
@@ -196,7 +202,16 @@ public class GPayActivity extends AppCompatActivity {
                     .getJSONObject("tokenizationData")
                     .getString("token"));
 
-            startActivity(new Intent(this, SuccessActivity.class));
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("booking");
+            String address = parking.getAddress();
+            String key = dbRef.push().getKey(); // Generates a unique key
+
+            Booking booking = new Booking(key, EMAIL, address);
+            dbRef.child(key).setValue(booking);
+
+
+            Intent intent = new Intent(this, SuccessActivity.class);
+            startActivity(intent);
 
         } catch (JSONException e) {
             Log.e("handlePaymentSuccess", "Error: " + e);

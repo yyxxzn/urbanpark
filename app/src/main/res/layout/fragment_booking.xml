@@ -4,21 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapActivity">
-
-    <fragment
-        android:id="@+id/mapFrag"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MapsActivity"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+    android:layout_marginBottom="20sp"
+    tools:context=".BookingFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="50sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="120dp"
+        android:layout_marginRight="10dp"
         android:elevation="10dp"
         android:background="@drawable/white_border" >
 
@@ -37,16 +27,16 @@
             android:src="@drawable/ic_search"
             android:layout_marginLeft="5sp"
             android:layout_marginRight="5sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/searchBar"
             app:layout_constraintRight_toLeftOf="@id/autoCompleteSearch"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/searchBar"
+            app:layout_constraintTop_toTopOf="@id/searchBar" />
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@null"
+            android:background="@color/cardview_dark_background"
             android:gravity="center"
             android:hint="@string/autoCompleteSearchHint"
             android:inputType="text"
@@ -58,4 +48,15 @@
             app:layout_constraintLeft_toRightOf="@+id/icSearch" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

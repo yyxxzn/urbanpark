@@ -111,14 +111,20 @@ public class MapUtils {
      * Used when enter key is pressed or search button is clicked
      * @param searchStr
      */
-    public void handleSearch(String searchStr) {
+//    public void handleSearch(String searchStr) {
+//        clearDisplayedMarkers();
+//        getDeviceLocation(!moveCam);
+//        if (searchStr.isEmpty()) {
+//            initializeMapWithMarkers(generalUtils.prePopulateParking());
+//        } else {
+//            geoLocateWithBackend(searchStr);
+//        }
+//    }
+
+    public void handleSearch(List<Parking> parkingList) {
         clearDisplayedMarkers();
         getDeviceLocation(!moveCam);
-        if (searchStr.isEmpty()) {
-            initializeMapWithMarkers(generalUtils.prePopulateParking());
-        } else {
-            geoLocateWithBackend(searchStr);
-        }
+        geoLocateWithBackend(parkingList);
     }
 
     private void clearDisplayedMarkers() {
@@ -175,80 +181,62 @@ public class MapUtils {
         }
     }
 
-    /**
-     * Gets the devices current location
-     * Moves the camera there (something like zoom into the current device location)
-     * Mark the location with a red pin-like.
-     */
-    public static LatLng getDeviceLocationLatlong(Activity activity) {
-        Log.d(TAG, "getDeviceLocationLatlong(activity): getting the device's current location lat and long");
+    public void geoLocateWithBackend(List<Parking> parkings) {
 
-        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.
-                getFusedLocationProviderClient(activity);
+        clearDisplayedMarkers();
 
-        final LatLng[] latLng = new LatLng[1];
+        if (!parkings.isEmpty()) {
+            for (int i=0; i < parkings.size(); i++) {
+                Parking parking = parkings.get(i);
+                LatLng latLng = new LatLng(parking.getLat(), parking.getLng());
+                addMarkerOnMaps(latLng, parking.getPlaceName());
 
-        try {
-            Task location = fusedLocationProviderClient.getLastLocation();
-            Log.d(TAG, "getDeviceLocationLatlong(activity): \nTask location = fusedLocationProviderClient.getLastLocation(): "+location);
-            location.addOnCompleteListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    if (task.isSuccessful()) {
-                        Location currentLocation = (Location) task.getResult();
-                        latLng[0] = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                        Log.d(TAG, "getDeviceLocationLatlong(activity): onComplete: found location. \nlatlng: "+latLng);
+                Log.d(TAG, "geoLocateWithBackend: parking.getPlaceName(): "+parking.getPlaceName());
 
-                    } else {
-                        Log.d(TAG, "getDeviceLocationLatlong(activity): onComplete: current location is null");
-                        Toast.makeText(activity.getApplicationContext(), "getDeviceLocationLatlong(activity): Unable to get current location", Toast.LENGTH_LONG).show();
-                    }
+                if (i == 0) {
+                    // Move the camera to only the first item
+                    moveCamera(latLng, DEFAULT_ZOOM);
                 }
-            });
-        } catch (SecurityException e) {
-            Log.e(TAG, "getDeviceLocationLatlong(Activity activity): SecurityException: " + e.getMessage());
-        }
-
-        Log.d(TAG, "getDeviceLocationLatlong(activity): \nlatlng before return: "+latLng);
-        return latLng[0];
-    }
-
-    public void geoLocateWithBackend(String newText) {
-        if (suggestionRunnable != null) {
-            suggestionHandler.removeCallbacks(suggestionRunnable);
-        }
-
-        suggestionRunnable = new Runnable() {
-            @Override
-            public void run() {
-                ExecutorService executorService = generalUtils.viewModel.getExecutorService();
-
-                executorService.submit(() -> {
-                    final List<Parking> parkings = generalUtils.fetchSuggestionsFromBackend(newText);
-
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!parkings.isEmpty()) {
-                                for (int i=0; i < parkings.size(); i++) {
-                                    Parking parking = parkings.get(i);
-                                    LatLng latLng = new LatLng(parking.getLat(), parking.getLng());
-                                    addMarkerOnMaps(latLng, parking.getPlaceName());
-
-                                    if (i == 0) {
-                                        // Move the camera to only the first item
-                                        moveCamera(latLng, DEFAULT_ZOOM);
-                                    }
-                                }
-                            }
-                        }
-                    });
-                });
             }
-        };
-
-        suggestionHandler.postDelayed(suggestionRunnable, generalUtils.SUGGESTION_DELAY_MILLIS);
+        }
     }
+
+//    public void geoLocateWithBackend(String newText) {
+//        if (suggestionRunnable != null) {
+//            suggestionHandler.removeCallbacks(suggestionRunnable);
+//        }
+//
+//        suggestionRunnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                ExecutorService executorService = generalUtils.viewModel.getExecutorService();
+//
+//                executorService.submit(() -> {
+//                    final List<Parking> parkings = generalUtils.fetchSuggestionsFromBackend(newText);
+//
+//                    activity.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (!parkings.isEmpty()) {
+//                                for (int i=0; i < parkings.size(); i++) {
+//                                    Parking parking = parkings.get(i);
+//                                    LatLng latLng = new LatLng(parking.getLat(), parking.getLng());
+//                                    addMarkerOnMaps(latLng, parking.getPlaceName());
+//
+//                                    if (i == 0) {
+//                                        // Move the camera to only the first item
+//                                        moveCamera(latLng, DEFAULT_ZOOM);
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    });
+//                });
+//            }
+//        };
+//
+//        suggestionHandler.postDelayed(suggestionRunnable, generalUtils.SUGGESTION_DELAY_MILLIS);
+//    }
 
     public void geoLocate(String searchStr) {
         Geocoder geocoder = new Geocoder(this.context);

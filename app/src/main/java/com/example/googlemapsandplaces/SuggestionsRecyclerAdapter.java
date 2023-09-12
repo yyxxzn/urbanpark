@@ -2,15 +2,19 @@ package com.example.googlemapsandplaces;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.googlemapsandplaces.gpay.SuccessActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +26,13 @@ public class SuggestionsRecyclerAdapter extends RecyclerView.Adapter<Suggestions
     private Context context;
     private Activity activity;
     private OnSuggestionClickListener suggestionClickListener;
+    private String useIt;
 
-    public SuggestionsRecyclerAdapter(Context context, Activity activity, List<Parking> suggestionsList) {
+    public SuggestionsRecyclerAdapter(Context context, Activity activity, List<Parking> suggestionsList, String useIt) {
         this.context = context;
         this.activity = activity;
         this.suggestionsList = suggestionsList;
+        this.useIt = useIt;
     }
 
     public void updateSuggestions(List<Parking> suggestions) {
@@ -66,6 +72,33 @@ public class SuggestionsRecyclerAdapter extends RecyclerView.Adapter<Suggestions
             }
         });
 
+        if (useIt.equals("booking")){
+            holder.endBtn.setVisibility(View.VISIBLE);
+            holder.extendBtn.setVisibility(View.VISIBLE);
+
+            // Set click listeners for your buttons
+            holder.endBtn.setOnClickListener(v -> {
+                // Handle the End Parking button click here
+                // For example, start a new activity:
+                Intent intent = new Intent(context, SuccessActivity.class);
+                // intent.putExtra("parkingId", data.getParkingId()); // Pass relevant data if needed
+                context.startActivity(intent);
+            });
+
+            // Set click listeners for your buttons
+            holder.extendBtn.setOnClickListener(v -> {
+                // Handle the End Parking button click here
+                // For example, start a new activity:
+                Intent intent = new Intent(context, SuccessActivity.class);
+                // intent.putExtra("parkingId", data.getParkingId()); // Pass relevant data if needed
+                context.startActivity(intent);
+            });
+
+        } else {
+            holder.endBtn.setVisibility(View.GONE);
+            holder.extendBtn.setVisibility(View.GONE);
+        }
+
         Log.d(TAG, "onBindViewHolder: Bind the recycler items to their respective views");
     }
 
@@ -89,6 +122,8 @@ public class SuggestionsRecyclerAdapter extends RecyclerView.Adapter<Suggestions
 
         private TextView placeName, address, distance, time, price, totalPlaces, remPlaces;
 
+        private Button endBtn, extendBtn;
+
         public SuggestionViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -99,6 +134,9 @@ public class SuggestionsRecyclerAdapter extends RecyclerView.Adapter<Suggestions
             time = itemView.findViewById(R.id.time);
             totalPlaces = itemView.findViewById(R.id.totalPlaces);
             remPlaces = itemView.findViewById(R.id.remPlaces);
+
+            endBtn = itemView.findViewById(R.id.endParking);
+            extendBtn = itemView.findViewById(R.id.extendParking);
 
             // Responds to recycler view clicks
             itemView.setOnClickListener(new View.OnClickListener() {

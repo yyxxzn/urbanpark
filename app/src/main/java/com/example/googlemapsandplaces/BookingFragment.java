@@ -1,5 +1,7 @@
 package com.example.googlemapsandplaces;
 
+import static com.example.googlemapsandplaces.GeneralUtils.EMAIL;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.googlemapsandplaces.databinding.FragmentBookingBinding;
 import com.example.googlemapsandplaces.databinding.FragmentSearchBinding;
 import com.example.googlemapsandplaces.firebasedb.FirebaseHelper;
 import com.example.googlemapsandplaces.gpay.GPayActivity;
@@ -28,6 +31,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -37,73 +41,37 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
+ * Use the {@link BookingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchFragment extends Fragment {
+public class BookingFragment extends Fragment {
 
-    private static final String TAG = ".SearchFragment";
+    private static final String TAG = ".BookingFragment";
 
     private AutoCompleteTextView searchAutoComplete;
     private RecyclerView suggestionsRecyclerView;
     private SuggestionsRecyclerAdapter suggestionsAdapter;
     private ThreadManagerViewModel viewModel;
+
+    private List<Booking> bookingList = new ArrayList<>();
     private List<Parking> parkingList = new ArrayList<>();
     private List<Parking> parkingListAlternate = new ArrayList<>();
 
     // Create an instance of FirebaseHelper
     private FirebaseHelper firebaseHelper = new FirebaseHelper();
+    private FirebaseHelper fbHelper;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference parkingRef;
+    DatabaseReference bookingDbRef;
     private GeneralUtils generalUtils;
-    private FragmentSearchBinding binding;
-
-    /*// TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SearchFragment() {
-        // Required empty public constructor
-    }
-
-
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
-
-    // TODO: Rename and change types and number of parameters
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }*/
+    private FragmentBookingBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentSearchBinding.inflate(inflater, container, false);
+        binding = FragmentBookingBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -113,23 +81,30 @@ public class SearchFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(ThreadManagerViewModel.class);
 
-        // on below line we are getting database reference.
-        databaseReference = FirebaseDatabase.getInstance().getReference("parking");
+        // on the below line we are getting database reference.
+        bookingDbRef = FirebaseDatabase.getInstance().getReference("booking");
+        Query query = bookingDbRef.orderByChild("email").equalTo(EMAIL);
 
-//        parkingList = generalUtils.prePopulateParking();
-
-        parkingList.clear();
-        FirebaseHelper.LocationSortOption sortOption = FirebaseHelper.LocationSortOption.DISTANCE;
-        // Fetch all parking items from the database
-        firebaseHelper.getAllParkings(sortOption, getActivity(), new FirebaseHelper.OnParkingsDataReceivedListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataReceived(List<Parking> parkings) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 parkingList.clear();
                 parkingListAlternate.clear();
 
-                parkingList.addAll(parkings);
-                parkingListAlternate.addAll(parkingList);
+                FirebaseHelper.LocationSortOption sortOption = FirebaseHelper.LocationSortOption.DISTANCE;
+                List<Parking> parkingObjects = new ArrayList<>(); // Create a list to store parking objects
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    // Access each history record and retrieve parkingID
+                    String parkingID = snapshot.child("parkingID").getValue(String.class);
+
+                    Log.d(TAG, "parkingID: "+parkingID);
+
+                    // Retrieve parking information based on parkingID and add them to the parkinglist
+                    retrieveParkingInfo(parkingID, sortOption, parkingObjects);
+                }
 
                 initComponents();
 
@@ -137,19 +112,57 @@ public class SearchFragment extends Fragment {
             }
 
             @Override
-            public void onError(String errorMessage) {
-                String msg = "\n\nSearchFragment getAllParkings onError(): " + errorMessage.toString() + "\n\n";
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                String msg = "\n\nBookingFragment getAllBookings onError(): " + databaseError.toString() + "\n\n";
                 Log.e(TAG, msg);
                 Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void retrieveParkingInfo(String parkingID, FirebaseHelper.LocationSortOption sortOption, List<Parking> parkingObjects) {
+        DatabaseReference parkingRef = FirebaseDatabase.getInstance().getReference("parking").child(parkingID);
+        parkingRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot parkingSnapshot) {
+
+                Parking parking = parkingSnapshot.getValue(Parking.class);
+                parkingObjects.add(parking);
+
+                parkingList.add(parking);
+                parkingListAlternate.add(parking);
+
+                suggestionsAdapter.notifyDataSetChanged();
+
+                Log.d(TAG, "parking id in parkingRef: "+parking.getAddress());
+                Log.d(TAG, "parkingObjects.size(): "+parkingObjects.size());
+                Log.d(TAG, "parkingSnapshot.getChildrenCount(): "+parkingSnapshot.getChildrenCount());
+
+                // Check if all parking data has been retrieved (by comparing the size of parkingObjects
+                // with the number of history records). If so, add them to parkingList.
+                /*if (parkingObjects.size() == parkingSnapshot.getChildrenCount()) {
+                    parkingList.addAll(parkingObjects);
+                    parkingListAlternate.addAll(parkingObjects);
+
+                    Log.d(TAG, "Entered the check in parkingRef: "+parkingList);
+
+                    initComponents();
+
+                    suggestionsAdapter.notifyDataSetChanged();
+                }*/
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle errors if any
+            }
+        });
     }
 
     public void initComponents(){
         searchAutoComplete = binding.autoCompleteSearch;
         suggestionsRecyclerView = binding.searchRecyclerView;
-        suggestionsAdapter = new SuggestionsRecyclerAdapter(getContext(), getActivity(),  parkingList, "search");
+        suggestionsAdapter = new SuggestionsRecyclerAdapter(getContext(), getActivity(),  parkingList, "booking");
 
         suggestionsRecyclerView.setAdapter(suggestionsAdapter);
         suggestionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -189,36 +202,6 @@ public class SearchFragment extends Fragment {
 
                 suggestionsAdapter.notifyDataSetChanged();
 
-                //Fetches all data at once instead of like addChildEventListener
-                /*databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot snapshot1: dataSnapshot.getChildren()) {
-
-                            Log.d(TAG, "\n\n snapshot1: "+snapshot1+"\n\nsnapshot.childreen: "+dataSnapshot.getChildren());
-
-                            Parking parking = snapshot1.getValue(Parking.class);
-                            // Check if the query matches the placeName or address (case-insensitive)
-                            if (parking != null &&
-                                    (parking.getPlaceName().toLowerCase().contains(searchStr.toLowerCase()) ||
-                                    parking.getAddress().toLowerCase().contains(searchStr.toLowerCase()))
-                            ){
-                                parkingList.add(parking);
-                            }
-                        }
-
-//                        firebaseHelper.sortParking(parkingList, sortOption);
-
-                        suggestionsAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });*/
-
                 // Close the keyboard and auto suggestions dropdown
                 generalUtils.closeKeyboard(searchAutoComplete);
                 searchAutoComplete.dismissDropDown();
@@ -248,36 +231,6 @@ public class SearchFragment extends Fragment {
                 firebaseHelper.sortParking(parkingList, sortOption);
 
                 suggestionsAdapter.notifyDataSetChanged();
-
-                //Fetches all data at once instead of like addChildEventListener
-                /*databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot snapshot1: dataSnapshot.getChildren()) {
-
-                            Log.d(TAG, "\n\n snapshot1: "+snapshot1+"\n\nsnapshot.childreen: "+dataSnapshot.getChildren());
-
-                            Parking parking = snapshot1.getValue(Parking.class);
-                            // Check if the query matches the placeName or address (case-insensitive)
-                            if (parking != null &&
-                                    (parking.getPlaceName().toLowerCase().contains(searchStr.toLowerCase()) ||
-                                    parking.getAddress().toLowerCase().contains(searchStr.toLowerCase()))
-                            ){
-                                parkingList.add(parking);
-                            }
-                        }
-
-//                        firebaseHelper.sortParking(parkingList, sortOption);
-
-                        suggestionsAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });*/
 
                 // Close the keyboard and auto suggestions dropdown
                 generalUtils.closeKeyboard(searchAutoComplete);

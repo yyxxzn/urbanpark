@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "516603940938",
+    "project_id": "urbanpark-8a128",
+    "storage_bucket": "urbanpark-8a128.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516603940938:android:a6505ea46b840275b4d6b3",
+        "android_client_info": {
+          "package_name": "com.example.googlemapsandplaces"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516603940938-48ujb7gg0dksapaeciobepf03qohieel.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEkXHeTvolFFfkVlVhD6hI9RuAvnvi3Xg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516603940938-48ujb7gg0dksapaeciobepf03qohieel.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

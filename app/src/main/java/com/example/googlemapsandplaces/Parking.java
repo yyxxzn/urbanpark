@@ -25,7 +25,18 @@ public class Parking implements Serializable {
 
     private LatLng latLng;
 
+    public Parking() {
+    }
 
+    /**
+     * @param lat
+     * @param lng
+     * @param price
+     * @param placeName
+     * @param address is the key
+     * @param total
+     * @param rem
+     */
     public Parking(Double lat,
                    Double lng,
                    String price,

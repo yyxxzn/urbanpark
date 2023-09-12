@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.googlemapsandplaces.Parking;
 import com.example.googlemapsandplaces.databinding.ActivitySuccessBinding;
 
 public class SuccessActivity extends AppCompatActivity {
@@ -12,7 +13,13 @@ public class SuccessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        init();
+
         ActivitySuccessBinding layoutBinding = ActivitySuccessBinding.inflate(getLayoutInflater());
         setContentView(layoutBinding.getRoot());
+    }
+
+    public void init(){
+
     }
 }
