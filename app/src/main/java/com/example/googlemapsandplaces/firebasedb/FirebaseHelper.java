@@ -33,12 +33,6 @@ public class FirebaseHelper {
         parkingList = new ArrayList<>();
     }
 
-    public FirebaseHelper(String parkingID) {
-        // Initialize the Firebase database reference
-        databaseReference = FirebaseDatabase.getInstance().getReference("parking").child(parkingID);
-        parkingList = new ArrayList<>();
-    }
-
     // Create a new parking item
     public void createParking(Parking parking) {
 //        String key = databaseReference.push().getKey();

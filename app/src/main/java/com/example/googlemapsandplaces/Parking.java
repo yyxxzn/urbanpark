@@ -23,6 +23,9 @@ public class Parking implements Serializable {
 
     private String total = "Total: 100", rem="Rem: 20";
 
+    private String startDateTime = "Date: 23/09/2000 \nTime: 19:05";
+    private String endDateTime = "Date: 28/04/2001 \nTime: 19:05";
+
     private LatLng latLng;
 
     public Parking() {
@@ -166,5 +169,21 @@ public class Parking implements Serializable {
 
     public void setRemPlaces(String rem) {
         this.rem = rem;
+    }
+
+    public String getStartDateTime() {
+        return startDateTime;
+    }
+
+    public void setStartDateTime(String startDateTime) {
+        this.startDateTime = startDateTime;
+    }
+
+    public String getEndDateTime() {
+        return endDateTime;
+    }
+
+    public void setEndDateTime(String endDateTime) {
+        this.endDateTime = endDateTime;
     }
 }

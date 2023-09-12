@@ -111,15 +111,51 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/remPlaces"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/startDateTime"
+            />
+
+        <TextView
+            android:id="@+id/startDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date: 23/09/2001 \nTime: 19:05"
+            android:textColor="@color/wallet_holo_blue_light"
+            android:visibility="gone"
+            android:textSize="25dp"
+            android:layout_marginTop="15sp"
+            android:layout_marginBottom="15sp"
+            android:gravity="center|center_vertical|center_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price"
+            app:layout_constraintBottom_toTopOf="@id/endDateTime"
+            />
+
+        <TextView
+            android:id="@+id/endDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date: 28/04/2001 \nTime: 19:05"
+            android:textColor="@color/wallet_holo_blue_light"
+            android:visibility="gone"
+            android:textSize="25dp"
+            android:layout_marginTop="15sp"
+            android:layout_marginBottom="15sp"
+            android:gravity="center|center_vertical|center_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/startDateTime"
+            app:layout_constraintBottom_toTopOf="@id/btnLayout"
             />
 
         <LinearLayout
+            android:id="@+id/btnLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_horizontal"
             android:layout_marginTop="5sp"
+            app:layout_constraintTop_toBottomOf="@id/endDateTime"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">

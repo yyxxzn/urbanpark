@@ -133,23 +133,6 @@ public class BookingFragment extends Fragment {
                 parkingListAlternate.add(parking);
 
                 suggestionsAdapter.notifyDataSetChanged();
-
-                Log.d(TAG, "parking id in parkingRef: "+parking.getAddress());
-                Log.d(TAG, "parkingObjects.size(): "+parkingObjects.size());
-                Log.d(TAG, "parkingSnapshot.getChildrenCount(): "+parkingSnapshot.getChildrenCount());
-
-                // Check if all parking data has been retrieved (by comparing the size of parkingObjects
-                // with the number of history records). If so, add them to parkingList.
-                /*if (parkingObjects.size() == parkingSnapshot.getChildrenCount()) {
-                    parkingList.addAll(parkingObjects);
-                    parkingListAlternate.addAll(parkingObjects);
-
-                    Log.d(TAG, "Entered the check in parkingRef: "+parkingList);
-
-                    initComponents();
-
-                    suggestionsAdapter.notifyDataSetChanged();
-                }*/
             }
 
             @Override
