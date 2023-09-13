@@ -1,4 +1,6 @@
 # urbanpark
+To get SHA 1, on gradle console run
+'singinReport'
 
 In your project's top-level build.gradle file, ensure that Google's Maven repository is included:
 

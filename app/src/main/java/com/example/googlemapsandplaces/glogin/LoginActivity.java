@@ -1,5 +1,7 @@
 package com.example.googlemapsandplaces.glogin;
 
+import static com.example.googlemapsandplaces.GeneralUtils.EMAIL;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.googlemapsandplaces.MainActivity;
 import com.example.googlemapsandplaces.R;
+import com.example.googlemapsandplaces.UserDetails;
 import com.example.googlemapsandplaces.databinding.ActivityGpayBinding;
 import com.example.googlemapsandplaces.databinding.ActivityLoginBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -22,6 +25,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -32,7 +37,9 @@ public class LoginActivity extends AppCompatActivity {
     ImageView googleBtn;
     Button loginButton;
 
-    ActivityLoginBinding binding; // Use the correct binding class
+    ActivityLoginBinding binding;
+
+    private UserDetails userDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +77,35 @@ public class LoginActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
             try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
+                GoogleSignInAccount acct = task.getResult(ApiException.class);
+
+                if (acct != null) {
+
+                    String email = acct.getEmail().toString().split("@")[0];
+                    String name = acct.getGivenName().toString() == null? "" : acct.getGivenName().toString();
+                    String surname = acct.getFamilyName().toString() == null ? "" : acct.getFamilyName().toString();
+
+                    if (name.equals("") && surname.equals("")){
+                        name = "No username";
+                    }
+
+                    EMAIL = email;
+
+                    Log.d(TAG, "email: "+email);
+                    Log.d(TAG, "Name----: "+name);
+                    Log.d(TAG, "Account-----: "+surname);
+
+                    userDetails = new UserDetails(email, name, surname);
+
+                    // on the below line we are getting database reference.
+                    DatabaseReference uRef = FirebaseDatabase.getInstance().getReference("user");
+
+                    uRef.child(email).setValue(userDetails);
+                }
+
                 String msg = "onActivityResult(): Successfully signed in. You can do further processing if needed.";
                 Log.d(TAG, msg);
-                navigateToSecondActivity();
+                navigateToMainActivity();
             } catch (ApiException e) {
                 // Display the actual error message
                 String errMsg = "onActivityResult():Google sign-in failed: \n\t" + e.getMessage();
@@ -84,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    void navigateToSecondActivity() {
+    void navigateToMainActivity() {
         finish();
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);

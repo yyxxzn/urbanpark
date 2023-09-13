@@ -48,7 +48,7 @@ public class GeneralUtils {
     private Handler suggestionHandler = new Handler(Looper.getMainLooper());
     private Runnable suggestionRunnable;
 
-    public static final String EMAIL = "yusuphajuwara@gmail.com";
+    public static String EMAIL = "yusuphajuwara";
 
     public GeneralUtils(Context context,
                         Activity activity,

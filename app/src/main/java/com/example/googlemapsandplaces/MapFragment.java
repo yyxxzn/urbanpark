@@ -85,39 +85,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         viewModel = new ViewModelProvider(requireActivity()).get(ThreadManagerViewModel.class);
 
-//        parkingList = GeneralUtils.prePopulateParking();
-
-        searchAutoComplete = fragmentMapBinding.autoCompleteSearch;
-
         getLocationPermission();
 
         // Go ahead only when the device's location permission is granted by the user
         if (locationPermissionGranted) {
 
             initMap();
-            FirebaseHelper.LocationSortOption sortOption = FirebaseHelper.LocationSortOption.DISTANCE;
-            // Fetch all parking items from the database
-            firebaseHelper.getAllParkings(sortOption, getActivity(), new FirebaseHelper.OnParkingsDataReceivedListener() {
-                @Override
-                public void onDataReceived(List<Parking> parkings) {
-
-                    parkingList.clear();
-                    parkingListAlternate.clear();
-
-                    parkingList.addAll(parkings);
-                    parkingListAlternate.addAll(parkingList);
-
-//                    initMap();
-                    initMapComponents();
-                }
-
-                @Override
-                public void onError(String errorMessage) {
-                    String msg = "\n\nMapFragment getAllParkings onError(): "+errorMessage.toString()+"\n\n";
-                    Log.e(TAG, msg);
-                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-                }
-            });
+            initMapComponents();
         }
     }
 
@@ -129,6 +103,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void initMapComponents() {
 
+        FirebaseHelper.LocationSortOption sortOption = FirebaseHelper.LocationSortOption.DISTANCE;
         generalUtils = new GeneralUtils(requireContext(), requireActivity(), viewModel);
 
         // Initialize AutoCompleteTextView with parking names
@@ -136,6 +111,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         for (Parking parking : parkingList) {
             parkingNames.add(parking.getAddress());
         }
+
+        searchAutoComplete = fragmentMapBinding.autoCompleteSearch;
         ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, parkingNames);
         searchAutoComplete.setAdapter(autoCompleteAdapter);
 
@@ -148,7 +125,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
 
                 String searchStr = searchAutoComplete.getText().toString();
-                FirebaseHelper.LocationSortOption sortOption = FirebaseHelper.LocationSortOption.DISTANCE;
+                FirebaseHelper.LocationSortOption sortOptionS = sortOption;
                 parkingList.clear();
 
                 for (Parking parking: parkingListAlternate) {
@@ -160,7 +137,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     }
                 }
 
-                firebaseHelper.sortParking(parkingList, sortOption);
+                firebaseHelper.sortParking(parkingList, sortOptionS);
 
                 autoCompleteAdapter.notifyDataSetChanged();
 
@@ -170,8 +147,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 generalUtils.closeKeyboard(searchAutoComplete);
                 searchAutoComplete.dismissDropDown();
             }
-//            parkingList.clear();
-//            parkingList.addAll(parkingListAlternate);
             return false;
         });
 
@@ -183,7 +158,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String searchStr = autoCompleteAdapter.getItem(position);
-                FirebaseHelper.LocationSortOption sortOption = FirebaseHelper.LocationSortOption.DISTANCE;
+                FirebaseHelper.LocationSortOption sortOptionS = sortOption;
                 parkingList.clear();
 
                 for (Parking parking: parkingListAlternate) {
@@ -195,7 +170,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     }
                 }
 
-                firebaseHelper.sortParking(parkingList, sortOption);
+                firebaseHelper.sortParking(parkingList, sortOptionS);
 
                 mapUtils.handleSearch(parkingList);
 
@@ -204,6 +179,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 searchAutoComplete.dismissDropDown();
             }
         });
+
+        // Fetch all parking items from the database
+        firebaseHelper.getAllParkings(sortOption, getActivity(), new FirebaseHelper.OnParkingsDataReceivedListener() {
+            @Override
+            public void onDataReceived(List<Parking> parkings) {
+
+                parkingList.clear();
+                parkingListAlternate.clear();
+
+                parkingList.addAll(parkings);
+                parkingListAlternate.addAll(parkingList);
+
+//                    initMap();
+//                initMapComponents();
+
+                autoCompleteAdapter.notifyDataSetChanged();
+                mapUtils.initializeMapWithMarkers(parkingList);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                String msg = "\n\nMapFragment getAllParkings onError(): "+errorMessage.toString()+"\n\n";
+                Log.e(TAG, msg);
+                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 
