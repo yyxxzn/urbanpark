@@ -80,9 +80,14 @@ public class LoginActivity extends AppCompatActivity {
                 GoogleSignInAccount acct = task.getResult(ApiException.class);
 
                 if (acct != null) {
+
                     String email = acct.getEmail().toString().split("@")[0];
-                    String name = acct.getGivenName().toString();
-                    String surname = acct.getFamilyName().toString();
+                    String name = acct.getGivenName().toString() == null? "" : acct.getGivenName().toString();
+                    String surname = acct.getFamilyName().toString() == null ? "" : acct.getFamilyName().toString();
+
+                    if (name.equals("") && surname.equals("")){
+                        name = "No username";
+                    }
 
                     EMAIL = email;
 
