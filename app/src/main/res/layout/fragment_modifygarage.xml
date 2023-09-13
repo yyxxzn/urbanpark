@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/parkingOptionsRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/deleteParkingRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete Parking"
+            android:buttonTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:background="@drawable/green_radio_button_bg"
+            />
+
+        <RadioButton
+            android:id="@+id/addParkingRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add Parking"
+            android:buttonTint="@android:color/white"
+            android:background="@drawable/green_radio_button_bg"
+            android:textColor="@android:color/white"
+            />
+
+        <RadioButton
+            android:id="@+id/newParkingRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="New Parking"
+            android:buttonTint="@android:color/white"
+            android:background="@drawable/green_radio_button_bg"
+            android:textColor="@android:color/white"
+            />
+
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- The fragment content will be placed here -->
+    </FrameLayout>
+
+</LinearLayout>
