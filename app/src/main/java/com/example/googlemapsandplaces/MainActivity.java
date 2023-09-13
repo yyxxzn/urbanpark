@@ -27,7 +27,7 @@ import java.util.List;
  * Google Doc: https://developers.google.com/maps/documentation/android-sdk/start#api-key
  * Youtoube: https://www.youtube.com/watch?v=Vt6H9TOmsuo&list=PLgCYzUzKIBE-vInwQhGSdnbyJ62nixHCt&index=4&ab_channel=CodingWithMitch
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private static final String TAG = "MainActivity";
     private static  final int ERROR_DIALOG_REQUEST = 9001;
@@ -43,11 +43,20 @@ public class MainActivity extends AppCompatActivity {
         // This sets the thread policy. It's better to be at the root
         setThreadPolicy();
 
-        replaceFragment(new MapFragment());
-
         if (isServicesOk()){
+
             // Comment this once the parkings are added to the database.
-            createParkingInit();
+            // createParkingInit();
+
+            // Check if an extra specifying the fragment is present
+            if (getIntent().hasExtra("fragment")) {
+                String fragmentTag = getIntent().getStringExtra("fragment");
+                switchFragment(fragmentTag);
+            } else {
+                // Default fragment when no extra is provided
+                replaceFragment(new MapFragment());
+            }
+
             init();
         }
 
@@ -64,13 +73,9 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new BookingFragment());
             } else if (item.getItemId() == R.id.bottom_nav_profile) {
                 replaceFragment(new ProfileFragment());
-            } else if (item.getItemId() == R.id.bottom_nav_settings) {
-                replaceFragment(new SettingsFragment());
             }
             return true;
         });
-
-
     }
 
     /**
@@ -105,6 +110,17 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.frameLayout,fragment)
                 .commit();
+    }
+
+    // Method to replace the fragment based on the tag received from SuccessActivity
+    private void switchFragment(String fragmentTag) {
+        if (fragmentTag.equals("map")) {
+            replaceFragment(new MapFragment());
+        } else if (fragmentTag.equals("search")) {
+            replaceFragment(new SearchFragment());
+        } else if (fragmentTag.equals("booking")) {
+            replaceFragment(new BookingFragment());
+        }
     }
 
     // This is so bec of the distance and time api calls. But when use threads, you can safely comment it

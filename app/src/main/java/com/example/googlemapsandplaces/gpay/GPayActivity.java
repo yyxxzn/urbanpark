@@ -97,6 +97,8 @@ public class GPayActivity extends AppCompatActivity {
         layoutBinding.parkingLayout.remPlaces.setText(parking.getRemPlaces());
         layoutBinding.parkingLayout.price.setText(parking.getPrice());
 
+        layoutBinding.parkingLayout.btnLayout.setVisibility(View.GONE);
+
         // Call this to get the current location and the destination
         parking.getDistanceAndTime(this, new Parking.DistanceCallback() {
             @Override
@@ -109,7 +111,8 @@ public class GPayActivity extends AppCompatActivity {
 
         layoutBinding.parkingLayout.distance.setText(parking.getDistance());
         layoutBinding.parkingLayout.time.setText(parking.getTime());
-
+        layoutBinding.parkingLayout.startDateTime.setText(parking.getStartDateTime());
+        layoutBinding.parkingLayout.endDateTime.setText(parking.getEndDateTime());
 
         // The Google Pay button is a layout file – take the root view
         googlePayButton = layoutBinding.googlePayButton;
@@ -208,6 +211,8 @@ public class GPayActivity extends AppCompatActivity {
 
             Booking booking = new Booking(key, EMAIL, address);
             dbRef.child(key).setValue(booking);
+
+            // TODO: add the start date and time
 
 
             Intent intent = new Intent(this, SuccessActivity.class);

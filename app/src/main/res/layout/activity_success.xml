@@ -7,11 +7,14 @@
     tools:context=".gpay.SuccessActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnLayoutVer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_centerInParent="true"
+        android:layout_marginBottom="20sp"
+        android:layout_marginTop="20sp"
         android:layout_margin="50dp">
 
         <ImageView
@@ -29,6 +32,37 @@
             android:textSize="16sp"
             android:textColor="?android:textColorSecondary"
             android:text="@string/payment_success_description"/>
+
+        <LinearLayout
+            android:id="@+id/btnLayoutHor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal|center|center_vertical"
+            android:layout_marginTop="50sp">
+
+            <Button
+                android:id="@+id/gotoMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Map"
+                android:layout_marginTop="5sp"/>
+
+            <Button
+                android:id="@+id/gotoSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                android:layout_marginTop="5sp"
+                android:layout_marginStart="1sp"/>
+            <Button
+                android:id="@+id/gotoBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bookings"
+                android:layout_marginTop="5sp"
+                android:layout_marginStart="1sp"/>
+        </LinearLayout>
 
     </LinearLayout>
 

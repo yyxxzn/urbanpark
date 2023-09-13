@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_gravity="center_horizontal|center_vertical|center"
+    android:layout_height="match_parent"
+    android:layout_marginTop="50sp"
+    tools:context=".gpay.SetupPaymentActivity">
+
+    <include
+        android:id="@+id/parking_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        layout="@layout/booking_recycler_items_viewholder_1" />
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="25sp"
+        android:layout_marginStart="30sp"
+        android:layout_marginEnd="30sp"
+        app:layout_constraintTop_toBottomOf="@id/parking_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/parkingStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parking Starts"
+            android:layout_marginTop="5sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" /> <!-- This view acts as a spacer to push the next button to the end -->
+
+        <Button
+            android:id="@+id/parkingEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parking Ends"
+            android:layout_marginTop="5sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/payPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go to GPay Page"
+        android:visibility="gone"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        app:layout_constraintTop_toBottomOf="@id/btnLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,9 @@ package com.example.googlemapsandplaces;
 
 import static com.example.googlemapsandplaces.GeneralUtils.EMAIL;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -59,11 +61,13 @@ public class BookingFragment extends Fragment {
 
     // Create an instance of FirebaseHelper
     private FirebaseHelper firebaseHelper = new FirebaseHelper();
-    private FirebaseHelper fbHelper;
+    private FirebaseHelper fbHelper = new FirebaseHelper();
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference parkingRef;
-    DatabaseReference bookingDbRef;
+    DatabaseReference bookingDbRef = FirebaseDatabase.getInstance().getReference("booking");
+    Query query = bookingDbRef.orderByChild("email").equalTo(EMAIL);
+
     private GeneralUtils generalUtils;
     private FragmentBookingBinding binding;
 
@@ -72,20 +76,16 @@ public class BookingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentBookingBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initComponents();
 
-        viewModel = new ViewModelProvider(this).get(ThreadManagerViewModel.class);
-
-        // on the below line we are getting database reference.
-        bookingDbRef = FirebaseDatabase.getInstance().getReference("booking");
-        Query query = bookingDbRef.orderByChild("email").equalTo(EMAIL);
-
-        query.addValueEventListener(new ValueEventListener() {
+        /*query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -117,7 +117,7 @@ public class BookingFragment extends Fragment {
                 Log.e(TAG, msg);
                 Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     private void retrieveParkingInfo(String parkingID, FirebaseHelper.LocationSortOption sortOption, List<Parking> parkingObjects) {
@@ -132,6 +132,8 @@ public class BookingFragment extends Fragment {
                 parkingList.add(parking);
                 parkingListAlternate.add(parking);
 
+                Log.d(TAG, "parkingList retrieveParkingInfo onDataChange: "+parkingList);
+
                 suggestionsAdapter.notifyDataSetChanged();
             }
 
@@ -143,6 +145,13 @@ public class BookingFragment extends Fragment {
     }
 
     public void initComponents(){
+
+        viewModel = new ViewModelProvider(this).get(ThreadManagerViewModel.class);
+
+        if (getContext() == null || getActivity() == null) {
+            throw new RuntimeException("Booking: getContext() == null || getActivity() == null \ngetContext(): "+getContext()+"\ngetActivity(): "+getActivity());
+        }
+
         searchAutoComplete = binding.autoCompleteSearch;
         suggestionsRecyclerView = binding.searchRecyclerView;
         suggestionsAdapter = new SuggestionsRecyclerAdapter(getContext(), getActivity(),  parkingList, "booking");
@@ -159,6 +168,36 @@ public class BookingFragment extends Fragment {
         }
         ArrayAdapter<String> autoCompleteAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, parkingNames);
         searchAutoComplete.setAdapter(autoCompleteAdapter);
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                parkingList.clear();
+                parkingListAlternate.clear();
+
+                FirebaseHelper.LocationSortOption sortOption = FirebaseHelper.LocationSortOption.DISTANCE;
+                List<Parking> parkingObjects = new ArrayList<>(); // Create a list to store parking objects
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    // Access each history record and retrieve parkingID
+                    String parkingID = snapshot.child("parkingID").getValue(String.class);
+
+                    Log.d(TAG, "parkingID: "+parkingID);
+
+                    // Retrieve parking information based on parkingID and add them to the parkinglist
+                    retrieveParkingInfo(parkingID, sortOption, parkingObjects);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                String msg = "\n\nBookingFragment getAllBookings onError(): " + databaseError.toString() + "\n\n";
+                Log.e(TAG, msg);
+                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // When "enter" is pressed in the search bar, it doesn't go to a new line
         // instead it executes an action (same as searching)
@@ -189,8 +228,6 @@ public class BookingFragment extends Fragment {
                 generalUtils.closeKeyboard(searchAutoComplete);
                 searchAutoComplete.dismissDropDown();
             }
-//            parkingList.clear();
-//            parkingList.addAll(parkingListAlternate);
             return false;
         });
 
@@ -219,8 +256,6 @@ public class BookingFragment extends Fragment {
                 generalUtils.closeKeyboard(searchAutoComplete);
                 searchAutoComplete.dismissDropDown();
             }
-//            parkingList.clear();
-//            parkingList.addAll(parkingListAlternate);
         });
 
         suggestionsAdapter.setOnSuggestionClickListener(new SuggestionsRecyclerAdapter.OnSuggestionClickListener() {
@@ -238,4 +273,5 @@ public class BookingFragment extends Fragment {
             }
         });
     }
+
 }

@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.googlemapsandplaces.databinding.FragmentSearchBinding;
 import com.example.googlemapsandplaces.firebasedb.FirebaseHelper;
 import com.example.googlemapsandplaces.gpay.GPayActivity;
+import com.example.googlemapsandplaces.gpay.SetupPaymentActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -296,7 +297,7 @@ public class SearchFragment extends Fragment {
                 parkingList.add(suggestion);
                 suggestionsAdapter.notifyDataSetChanged();
 
-                Intent intent = new Intent(getContext(), GPayActivity.class);
+                Intent intent = new Intent(getContext(), SetupPaymentActivity.class);
                 intent.putExtra("parkingObject", suggestion);
                 startActivity(intent);
             }
