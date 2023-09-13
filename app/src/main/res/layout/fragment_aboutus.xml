@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#FFFFFF"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -20,7 +21,7 @@
             android:paddingEnd="2dp"
             android:paddingRight="20dp"
             android:paddingBottom="20dp"
-            android:text="Lorem ipsum dolor sit amet. Aut dolores asperiores non ducimus consequatur ea laudantium eligendi non deleniti impedit qui nihil illum in quas dicta. Sit voluptatibus accusantium et aliquid nesciunt et corporis obcaecati et velit obcaecati a perspiciatis impedit vel nihil nihil hic nulla minima? Eum eligendi omnis id sunt facilis sit tempora officia et itaque quisquam sed nostrum ipsum At rerum nostrum.&#xA;&#xA;"
+            android:text="Hello! We’re a  team of talented Sapienza students which developed the app you’re looking at!"
             android:textSize="28sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
