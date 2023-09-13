@@ -8,38 +8,49 @@
     android:gravity="center"
     android:orientation="vertical"
     android:translationX="21px"
-    tools:context=".glogin.LoginActivity">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="316dp"
         android:layout_height="146dp"
-        card_view:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo"
+        />
+
+    <TextView
+        android:id="@+id/loginText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hello!"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="27sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/loginText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ready to Park?"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="27sp"
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="317dp"
-        android:layout_height="190dp"
-        android:layout_gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:orientation="horizontal"></LinearLayout>
 
-        <TextView
-            android:id="@+id/loginText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:textAlignment="center"
-            android:textColor="#21CB49"
-            android:textSize="27sp"
-            android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="345dp"
+        android:layout_height="57dp"
+        app:srcCompat="@drawable/googlebtn2" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="127dp"
-            android:layout_height="57dp"
-            android:translationX="185px"
-            android:translationY="30px"
-            card_view:srcCompat="@drawable/googlebtn" />
-    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="261dp"
+        android:orientation="horizontal"></LinearLayout>
 
 </LinearLayout>

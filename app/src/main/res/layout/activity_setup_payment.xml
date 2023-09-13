@@ -35,8 +35,9 @@
             android:id="@+id/parkingStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Parking Starts"
-            android:layout_marginTop="5sp" />
+            android:layout_marginTop="5sp"
+            android:backgroundTint="#4CAF50"
+            android:text="Parking Starts" />
 
         <View
             android:layout_width="0dp"
@@ -47,8 +48,9 @@
             android:id="@+id/parkingEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Parking Ends"
-            android:layout_marginTop="5sp" />
+            android:layout_marginTop="5sp"
+            android:backgroundTint="#4CAF50"
+            android:text="Parking Ends" />
     </LinearLayout>
 
     <Button
