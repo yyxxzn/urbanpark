@@ -14,6 +14,7 @@
         android:id="@+id/imageView"
         android:layout_width="316dp"
         android:layout_height="146dp"
+        android:translationY="-200px"
         card_view:srcCompat="@drawable/logo" />
 
     <LinearLayout
@@ -25,7 +26,7 @@
 
         <TextView
             android:id="@+id/loginText"
-            android:layout_width="match_parent"
+            android:layout_width="106dp"
             android:layout_height="wrap_content"
             android:text="Login"
             android:textAlignment="center"
@@ -35,11 +36,12 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="127dp"
+            android:layout_width="103dp"
             android:layout_height="57dp"
-            android:translationX="185px"
-            android:translationY="30px"
+            android:translationX="300px"
+            android:translationY="-100px"
             card_view:srcCompat="@drawable/googlebtn" />
+
     </LinearLayout>
 
 </LinearLayout>
