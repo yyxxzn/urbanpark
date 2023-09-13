@@ -1,7 +1,6 @@
 package com.example.googlemapsandplaces;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -28,9 +27,10 @@ public class Parking implements Serializable {
 
     private LatLng latLng;
 
+    public Parking(String placeName, String address, Double lat, Double lng, String price, String s, String rem, String time) {
+    }
     public Parking() {
     }
-
     /**
      * @param lat
      * @param lng
