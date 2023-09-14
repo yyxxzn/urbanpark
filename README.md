@@ -1,3 +1,5 @@
+An Human Computer Interaction Project about private parking
+
 # urbanpark
 To get SHA 1, on gradle console run
 'singinReport'
