@@ -12,8 +12,8 @@
         android:layout_height="134dp"
         android:layout_marginStart="8sp"
         android:layout_marginEnd="8sp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
+        android:background="#8E8A8A"
+        android:backgroundTint="#D8D8D8"
         android:paddingStart="8dp"
         app:cardBackgroundColor="@color/blueBlack"
         app:cardCornerRadius="20sp"
@@ -115,56 +115,54 @@
                 android:id="@+id/startDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date: 23/09/2001 \nTime: 19:05"
-                android:textColor="@color/wallet_holo_blue_light"
-                android:visibility="gone"
-                android:textSize="25dp"
                 android:layout_marginTop="15sp"
                 android:layout_marginBottom="15sp"
                 android:gravity="center|center_vertical|center_horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/price"
+                android:text="Date: 23/09/2001 \nTime: 19:05"
+                android:textColor="@color/wallet_holo_blue_light"
+                android:textSize="25dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/endDateTime"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/price" />
 
             <TextView
                 android:id="@+id/endDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date: 28/04/2001 \nTime: 19:05"
-                android:textColor="@color/wallet_holo_blue_light"
-                android:visibility="gone"
-                android:textSize="25dp"
                 android:layout_marginTop="15sp"
                 android:layout_marginBottom="15sp"
                 android:gravity="center|center_vertical|center_horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/startDateTime"
+                android:text="Date: 28/04/2001 \nTime: 19:05"
+                android:textColor="@color/wallet_holo_blue_light"
+                android:textSize="25dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/btnLayout"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/startDateTime" />
 
             <LinearLayout
                 android:id="@+id/btnLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
                 android:layout_marginTop="5sp"
-                app:layout_constraintTop_toBottomOf="@id/endDateTime"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/endDateTime">
 
                 <Button
                     android:id="@+id/endParking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="End Parking"
                     android:layout_marginTop="5sp"
-                    android:gravity="start" />
+                    android:gravity="start"
+                    android:text="End Parking"
+                    android:visibility="gone" />
 
                 <View
                     android:layout_width="0dp"
@@ -175,10 +173,10 @@
                     android:id="@+id/extendParking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="Extend Parking"
                     android:layout_marginTop="5sp"
-                    android:gravity="end" />
+                    android:gravity="end"
+                    android:text="Extend Parking"
+                    android:visibility="gone" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,10 +10,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="365dp"
         android:layout_height="123dp"
+        android:backgroundTint="#D8D8D8"
         android:layout_marginStart="8sp"
         android:layout_marginEnd="8sp"
         android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
+
         android:paddingStart="8dp"
         app:cardBackgroundColor="@color/blueBlack"
         app:cardCornerRadius="20sp"
