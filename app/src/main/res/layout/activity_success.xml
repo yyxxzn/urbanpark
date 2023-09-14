@@ -13,9 +13,9 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20sp"
+        android:layout_marginTop="20sp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -40,39 +40,33 @@
             android:id="@+id/btnLayoutHor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50sp"
+            android:orientation="horizontal"
             android:gravity="center_horizontal|center|center_vertical"
-            android:orientation="horizontal">
+            android:layout_marginTop="50sp">
 
             <Button
                 android:id="@+id/gotoMap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:backgroundTint="#4CAF50"
                 android:text="Map"
-                android:textColor="#FFFFFF" />
+                android:layout_marginTop="5sp"/>
 
             <Button
                 android:id="@+id/gotoSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="1sp"
-                android:layout_marginTop="5sp"
-                android:backgroundTint="#4CAF50"
                 android:text="Search"
-                android:textColor="#FFFFFF" />
-
+                android:layout_marginTop="5sp"
+                android:layout_marginStart="1sp"/>
             <Button
                 android:id="@+id/gotoBooking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="1sp"
-                android:layout_marginTop="5sp"
-                android:backgroundTint="#4CAF50"
                 android:text="Bookings"
-                android:textColor="#FFFFFF" />
+                android:layout_marginTop="5sp"
+                android:layout_marginStart="1sp"/>
         </LinearLayout>
+
 
     </LinearLayout>
 

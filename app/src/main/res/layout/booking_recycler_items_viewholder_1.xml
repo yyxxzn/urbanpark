@@ -115,54 +115,56 @@
                 android:id="@+id/startDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Date: 23/09/2001 \nTime: 19:05"
+                android:textColor="@color/wallet_holo_blue_light"
+                android:visibility="gone"
+                android:textSize="25dp"
                 android:layout_marginTop="15sp"
                 android:layout_marginBottom="15sp"
                 android:gravity="center|center_vertical|center_horizontal"
-                android:text="Date: 23/09/2001 \nTime: 19:05"
-                android:textColor="@color/wallet_holo_blue_light"
-                android:textSize="25dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/endDateTime"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/price" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/price"
+                app:layout_constraintBottom_toTopOf="@id/endDateTime"
+                />
 
             <TextView
                 android:id="@+id/endDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Date: 28/04/2001 \nTime: 19:05"
+                android:textColor="@color/wallet_holo_blue_light"
+                android:visibility="gone"
+                android:textSize="25dp"
                 android:layout_marginTop="15sp"
                 android:layout_marginBottom="15sp"
                 android:gravity="center|center_vertical|center_horizontal"
-                android:text="Date: 28/04/2001 \nTime: 19:05"
-                android:textColor="@color/wallet_holo_blue_light"
-                android:textSize="25dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/btnLayout"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/startDateTime" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/startDateTime"
+                app:layout_constraintBottom_toTopOf="@id/btnLayout"
+                />
 
             <LinearLayout
                 android:id="@+id/btnLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:gravity="center_horizontal"
                 android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="5sp"
+                app:layout_constraintTop_toBottomOf="@id/endDateTime"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/endDateTime">
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <Button
                     android:id="@+id/endParking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:gravity="start"
+                    android:visibility="gone"
                     android:text="End Parking"
-                    android:visibility="gone" />
+                    android:layout_marginTop="5sp"
+                    android:gravity="start" />
 
                 <View
                     android:layout_width="0dp"
@@ -173,10 +175,10 @@
                     android:id="@+id/extendParking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:gravity="end"
+                    android:visibility="gone"
                     android:text="Extend Parking"
-                    android:visibility="gone" />
+                    android:layout_marginTop="5sp"
+                    android:gravity="end" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

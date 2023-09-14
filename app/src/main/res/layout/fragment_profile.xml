@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/profilelayout"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -11,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <Button
             android:id="@+id/button4"
             android:layout_width="match_parent"
@@ -26,8 +26,6 @@
             app:iconPadding="0dp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp" />
-
-
         <Button
             android:id="@+id/button5"
             android:layout_width="match_parent"
@@ -42,7 +40,6 @@
             app:iconPadding="0dp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp" />
-
         <Button
             android:id="@+id/button6"
             android:layout_width="match_parent"
@@ -81,17 +78,11 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:outlineAmbientShadowColor="#000000"
-            android:text="Add garage"
+            android:text="Modify garage"
             android:textColor="#000000"
             app:cornerRadius="0dp"
             app:iconPadding="0dp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp" />
-
     </LinearLayout>
-
 </RelativeLayout>
-
-
-
-
