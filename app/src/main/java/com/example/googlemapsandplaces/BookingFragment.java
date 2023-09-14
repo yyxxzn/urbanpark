@@ -258,7 +258,7 @@ public class BookingFragment extends Fragment {
             }
         });
 
-        suggestionsAdapter.setOnSuggestionClickListener(new SuggestionsRecyclerAdapter.OnSuggestionClickListener() {
+        /*suggestionsAdapter.setOnSuggestionClickListener(new SuggestionsRecyclerAdapter.OnSuggestionClickListener() {
             @Override
             public void onSuggestionClick(Parking suggestion) {
                 searchAutoComplete.setText(suggestion.getAddress());
@@ -271,7 +271,7 @@ public class BookingFragment extends Fragment {
                 intent.putExtra("parkingObject", suggestion);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
 }
